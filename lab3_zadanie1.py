@@ -2,6 +2,7 @@
 #Po uruchumieniu programu wpisz -help aby uzyskac dokladna instukcje tego jak powinien wygladac input
 
 from pathlib import Path
+import odczytanie_i_zapis #Wczytuje moduł pozwalający na odczyt i zapis 
 
 #zamienia dane podane w inpucie na dane czytelne dla dalszej czesci programu
 def zmiana_danych(data):
