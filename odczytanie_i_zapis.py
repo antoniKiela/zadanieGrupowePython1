@@ -32,6 +32,3 @@ def odczytCzasu (nazwa): # Funkcja odczytCzasu (nazwa pliku).
                 i += int(wiersze[2].replace("s", "").strip())
     print("Czas A: " + str(i))
     return i
-
-zapis("dane.csv")
-odczytCzasu("dane.csv")
