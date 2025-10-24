@@ -69,6 +69,8 @@ def zapisanie_plikow(miesiace_in, dni_in, pora_in):
             plik.touch(exist_ok=True)
             #print(plik)
 
+            odczytanie_i_zapis.zapis(str(plik)) 
+
 #funkcja odczytuje pliki dane.csv w podanych katalogach. Jesli nie znajdzie danego pliku, pojawi sie stosowny komunikat
 def odczyt_plikow(miesiace_in, dni_in, pora_in):
     znacznik_pory = 0
@@ -85,8 +87,9 @@ def odczyt_plikow(miesiace_in, dni_in, pora_in):
 
             plik = sciezka / 'dane.csv'
             try:
-                zawartosc = plik.read_text(encoding="utf-8")
-                print(f"{plik}:\t|\t{zawartosc}")
+                odczytanie_i_zapis.odczytCzasu(str(plik))
+                #zawartosc = plik.read_text(encoding="utf-8")
+                #print(f"{plik}:\t|\t{zawartosc}")
             except FileNotFoundError:
                 print(f"Nie znaleziono pliku:\t {plik}")
 
