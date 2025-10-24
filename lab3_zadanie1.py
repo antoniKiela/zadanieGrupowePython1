@@ -3,6 +3,7 @@
 
 from pathlib import Path
 import odczytanie_i_zapis #Wczytuje moduł pozwalający na odczyt i zapis 
+import argparse
 
 #zamienia dane podane w inpucie na dane czytelne dla dalszej czesci programu
 def zmiana_danych(data):
@@ -93,12 +94,27 @@ def odczyt_plikow(miesiace_in, dni_in, pora_in):
             except FileNotFoundError:
                 print(f"Nie znaleziono pliku:\t {plik}")
 
+
+
 #funkcja zbierajaca wszystkie wczesniejsze funkcje, uruchamiajac ja uruchamiamy caly program
 def master():
-    print("Podaj dane (-opcja, [miesiace], [dni], [pory]), wprowadz -help aby wyswietlic pomoc")
-    data = input()
-    if(data == '-help'):
-        print('Na poczatku inputu zaznacz czy chcesz tylko odczytac czy zapisac pliki. \nAby odczytac na poczatku inputu wprowadz -o\tAby zapisac wpisz -z')
+    parser = argparse.ArgumentParser(
+        add_help=False
+    )
+    
+    # 3 flagi: -o, -z, -h
+    parser.add_argument('-o', '--odczyt', action='store_true', help='Odczytaj pliki')
+    parser.add_argument('-z', '--zapis', action='store_true', help='Zapisz pliki')
+    parser.add_argument('-h', '--help', action='store_true', help='Wyświetl pomoc')
+
+    args = parser.parse_args()
+
+    if args.help:
+        print('FLAGI:\n-o, --odczyt    Odczytaj pliki dane.csv z podanej struktury katalogów\n\t\tWyświetla sumę czasu dla modelu A\n')
+        print('-z, --zapis     Zapisz pliki dane.csv w podanej strukturze katalogów\n\t\tTworzy katalogi i wypełnia je losowymi danymi\n')
+        print('-h, --help      Wyświetl tę pomoc\n')
+        print('\nDomyslnie program jest wlaczony w trybie zapisu\n')
+        print('\nDane podajemy w formacie:\n[miesiace], [dni], [pory]\n')
         print('Miesiace piszemy dowolnie\n')
         print('Dni zapisujemy w nastepujacy sposob:')
         print('pn -> poniedzialek \t|\t wt -> wtorek \t|\t sr -> sroda \t|\t czw -> \t|\t czwartek \t|\t pt -> piatek \t|\t sb -> sobota \t|\t nd -> niedziela')
@@ -107,17 +123,33 @@ def master():
         print('Miesiace, dni i pory grupujemy ze soba uzywajac [...]')
         print('Elementy wewnatrz nawiasow oddzielamy zapisujac \', \' (przecinek i spacja)\n')
         print('Przykladowo poprawnie sformatowany input:')
-        print('-o [styczen, luty] [sr-pn, pt-nd] [r, w, w, w, w, r, w]')
-        return 0;
+        print('[styczen, luty] [sr-pn, pt-nd] [r, w, w, w, w, r, w]')
+
+        return
+
+    if args.odczyt:
+        print("Tryb odczytu")
+
+    if args.zapis:
+        print("Tryb zapisu")
+
+
+    if not args.odczyt and not args.zapis and not args.help:
+        args.zapis = True
+        print("Nie podano flagi - ustawiam domyślnie tryb ZAPISU (-z)")
     
+    # Tryb interaktywny
+    print("Podaj dane ([miesiace], [dni], [pory])")
+    data = input()
+
     lista_danych = zmiana_danych(data)
-    opcja = lista_danych[0]
     miesiace = lista_danych[1]
     dni_input = lista_danych[2]
     pora_input = lista_danych[3]
-    if(opcja == 'o'):
+
+    if args.odczyt:
         odczyt_plikow(miesiace, dni_input, pora_input)
-    elif(opcja == 'z'):
+    elif args.zapis:
         zapisanie_plikow(miesiace, dni_input, pora_input)
 
 master()
