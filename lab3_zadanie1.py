@@ -54,16 +54,17 @@ def zmiana_pory(pora):
 #funkcja zapisuje pliki we wskazanych miejscach. Jesli podany plik juz istnieje, funkcja go zignoruje.        
 def zapisanie_plikow(miesiace_in, dni_in, pora_in):
     znacznik_pory = 0
+    dict_days = {'pn': 'poniedzialek', 'wt': 'wtorek', 'sr': 'sroda', 'czw': 'czwartek', 'pt': 'piatek', 'sb': 'sobota', 'nd': 'niedziela'}
     for num_mies, mies in enumerate(miesiace_in):
         dni = lista_dni(dni_in[num_mies])
         pora = zmiana_pory(pora_in)
 
         for days in dni:
             try:
-                sciezka = Path(mies, days, pora[znacznik_pory])
+                sciezka = Path(mies, dict_days[days], pora[znacznik_pory])
                 znacznik_pory += 1
             except IndexError:
-                sciezka = Path(mies, days, 'rano')
+                sciezka = Path(mies, dict_days[days], 'rano')
 
             sciezka.mkdir(parents=True, exist_ok=True)
             plik = sciezka / 'dane.csv'
@@ -75,16 +76,17 @@ def zapisanie_plikow(miesiace_in, dni_in, pora_in):
 #funkcja odczytuje pliki dane.csv w podanych katalogach. Jesli nie znajdzie danego pliku, pojawi sie stosowny komunikat
 def odczyt_plikow(miesiace_in, dni_in, pora_in):
     znacznik_pory = 0
+    dict_days = {'pn': 'poniedzialek', 'wt': 'wtorek', 'sr': 'sroda', 'czw': 'czwartek', 'pt': 'piatek', 'sb': 'sobota', 'nd': 'niedziela'}
     for num_mies, mies in enumerate(miesiace_in):
         dni = lista_dni(dni_in[num_mies])
         pora = zmiana_pory(pora_in)
 
         for days in dni:
             try:
-                sciezka = Path(mies, days, pora[znacznik_pory])
+                sciezka = Path(mies, dict_days[days], pora[znacznik_pory])
                 znacznik_pory += 1
             except IndexError:
-                sciezka = Path(mies, days, 'rano')
+                sciezka = Path(mies, dict_days[days], 'rano')
 
             plik = sciezka / 'dane.csv'
             try:
