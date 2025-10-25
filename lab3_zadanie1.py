@@ -119,7 +119,7 @@ def master():
         print('\nDane podajemy w formacie:\n[miesiace], [dni], [pory]\n')
         print('Miesiace piszemy dowolnie\n')
         print('Dni zapisujemy w nastepujacy sposob:')
-        print('pn -> poniedzialek \t|\t wt -> wtorek \t|\t sr -> sroda \t|\t czw -> \t|\t czwartek \t|\t pt -> piatek \t|\t sb -> sobota \t|\t nd -> niedziela')
+        print('pn -> poniedzialek | wt -> wtorek | sr -> sroda | czw -> czwartek | pt -> piatek | sb -> sobota | nd -> niedziela\n')
         print('Zakresy podaje sie wstawiajac miedzy dwoma dniami myslnik, np: wt-nd\n')
         print('Pory dnia zapisujemy jako r -> rano, lub jako w -> wieczor\n')
         print('Miesiace, dni i pory grupujemy ze soba uzywajac [...]')
